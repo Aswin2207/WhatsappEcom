@@ -56,7 +56,8 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
             let message_id = incomingMessage.message_id; // extract the message id
 
             if (typeOfMsg === 'text_message' && incomingMessage.text ==='Hi') {
-
+                
+                console.log("Yes")
                 utils.firstMessage(recipientName,recipientPhone)
             }
         }
