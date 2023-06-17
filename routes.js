@@ -12,7 +12,8 @@ const Whatsapp = new WhatsappCloudAPI({
 router.get('/meta_wa_callbackurl', (req, res) => {
     try {
         console.log('GET: Someone is pinging me!');
-
+        let data = Whatsapp.parseMessage(req.body);
+        console.log(data)
         let mode = req.query['hub.mode'];
         let token = req.query['hub.verify_token'];
         let challenge = req.query['hub.challenge'];
@@ -46,23 +47,23 @@ router.get('/demo', (req, res) => {
 router.post('/meta_wa_callbackurl', async (req, res) => {
     console.log("Message received")
     // try {
-        let data = Whatsapp.parseMessage(req.body);
-        console.log(data)
+        // let data = Whatsapp.parseMessage(req.body);
+        // console.log(data)
 
-        if (data.isMessage) {
-            let incomingMessage = data.message;
-            let recipientPhone = incomingMessage.from.phone; // extract the phone number of sender
-            let recipientName = incomingMessage.from.name;
-            let typeOfMsg = incomingMessage.type; // extract the type of message (some are text, others are images, others are responses to buttons etc...)
-            let message_id = incomingMessage.message_id; // extract the message id
+        // if (data.isMessage) {
+        //     let incomingMessage = data.message;
+        //     let recipientPhone = incomingMessage.from.phone; // extract the phone number of sender
+        //     let recipientName = incomingMessage.from.name;
+        //     let typeOfMsg = incomingMessage.type; // extract the type of message (some are text, others are images, others are responses to buttons etc...)
+        //     let message_id = incomingMessage.message_id; // extract the message id
 
-            if (typeOfMsg === 'text_message' && incomingMessage.text.body === 'Hi') {
+        //     if (typeOfMsg === 'text_message' && incomingMessage.text.body === 'Hi') {
 
-                utils.firstMessage(recipientName, recipientPhone)
-            }
-            else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === 'English' || 'Maths')){
-                utils.secondMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
-            }
+        //         utils.firstMessage(recipientName, recipientPhone)
+        //     }
+        //     else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === 'English' || 'Maths')){
+        //         utils.secondMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
+        //     }
             // else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === 'A' || 'B' || 'C')){
             //     utils.thirdMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
             // }
@@ -72,11 +73,11 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
             // else{
             //     utils.fifthMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
             // }
-        }
-        else{
-           console.log("no msg")
-        console.log('POST: Someone is pinging me!');
-        }
+        // }
+        // else{
+        //    console.log("no msg")
+        // console.log('POST: Someone is pinging me!');
+        // }
         // return res.sendStatus(200);
     // } catch (error) {
     //     console.error({ error })
