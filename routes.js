@@ -66,16 +66,16 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
 
                 utils.firstMessage(recipientName, recipientPhone)
             }
-            else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === 'English' || 'Maths') && !status.step2){
+            else if(typeOfMsg === 'simple_button_message' && incomingMessage.button_reply.id === 'English' || 'Maths' && !status.step2){
                 status.step2=true;
                 utils.secondMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
             }
-            else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === 'A' || 'B' || 'C') && !status.step3){
+            else if(typeOfMsg === 'simple_button_message' && incomingMessage.button_reply.id === 'A' || 'B' || 'C' && !status.step3){
                 status.step3=true;
                 tutor=incomingMessage.button_reply.id;
                 utils.thirdMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
             }
-            else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === '6pm' || '8pm' || '9pm') && !status.step4){
+            else if(typeOfMsg === 'simple_button_message' && incomingMessage.button_reply.id === '6pm' || '8pm' || '9pm' && !status.step4){
                 status.step4=true;
                 utils.fourthMessage(recipientName, recipientPhone,tutor,incomingMessage.button_reply.title)
             }
