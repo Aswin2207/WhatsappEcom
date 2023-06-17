@@ -1,5 +1,6 @@
 'use strict';
 const router = require('express').Router();
+const utils = require('./utils');
 
 router.get('/meta_wa_callbackurl', (req, res) => {
     try {
@@ -48,20 +49,8 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
             let message_id = incomingMessage.message_id; // extract the message id
 
             if (typeOfMsg === 'text_message' && incomingMessage ==='Hi') {
-                await Whatsapp.sendSimpleButtons({
-                    message: `Hey ${recipientName}, \nYou are speaking to a chatbot.\nWhat do you want to do next?`,
-                    recipientPhone: recipientPhone, 
-                    listOfButtons: [
-                        {
-                            title: 'View some products',
-                            id: 'see_categories',
-                        },
-                        {
-                            title: 'Speak to a human',
-                            id: 'speak_to_human',
-                        },
-                    ],
-                });
+
+                utils.firstMessage(recipientName,recipientPhone)
             }
         }
         console.log('POST: Someone is pinging me!');
