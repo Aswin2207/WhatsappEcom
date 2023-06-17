@@ -49,7 +49,7 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
         let data = Whatsapp.parseMessage(req.body);
         console.log(data)
 
-        if (data?.isMessage && data.message) {
+        if (data.isMessage) {
             let incomingMessage = data.message;
             let recipientPhone = incomingMessage.from.phone; // extract the phone number of sender
             let recipientName = incomingMessage.from.name;
@@ -73,7 +73,10 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
             //     utils.fifthMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
             // }
         }
+        else{
+           console.log("no msg")
         console.log('POST: Someone is pinging me!');
+        }
         // return res.sendStatus(200);
     // } catch (error) {
     //     console.error({ error })
