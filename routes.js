@@ -56,8 +56,6 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
             let typeOfMsg = incomingMessage.type; // extract the type of message (some are text, others are images, others are responses to buttons etc...)
             let message_id = incomingMessage.message_id; // extract the message id
 
-            console.log(typeOfMsg);
-            console.log(incomingMessage)
             if (typeOfMsg === 'text_message' && incomingMessage.text.body === 'Hi') {
 
                 utils.firstMessage(recipientName, recipientPhone)
@@ -65,15 +63,15 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
             else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === 'English' || 'Maths')){
                 utils.secondMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
             }
-            else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === 'A' || 'B' || 'C')){
-                utils.thirdMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
-            }
-            else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === '6pm' || '8pm' || '9pm')){
-                utils.fourthMessage(recipientName, recipientPhone,incomingMessage.button_reply.title)
-            }
-            else{
-                utils.fifthMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
-            }
+            // else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === 'A' || 'B' || 'C')){
+            //     utils.thirdMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
+            // }
+            // else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === '6pm' || '8pm' || '9pm')){
+            //     utils.fourthMessage(recipientName, recipientPhone,incomingMessage.button_reply.title)
+            // }
+            // else{
+            //     utils.fifthMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
+            // }
         }
         console.log('POST: Someone is pinging me!');
         // return res.sendStatus(200);
