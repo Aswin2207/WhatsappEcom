@@ -45,7 +45,7 @@ router.get('/demo', (req, res) => {
 
 router.post('/meta_wa_callbackurl', async (req, res) => {
     console.log("Message received")
-    try {
+    // try {
         let data = Whatsapp.parseMessage(req.body);
         console.log(data)
 
@@ -69,6 +69,7 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
                 utils.thirdMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
             }
             else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === '6pm' || '8pm' || '9pm')){
+                utils.fourthMessage(recipientName, recipientPhone,incomingMessage.button_reply.title)
             }
             else{
                 utils.fifthMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
@@ -76,10 +77,10 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
         }
         console.log('POST: Someone is pinging me!');
         // return res.sendStatus(200);
-    } catch (error) {
-        console.error({ error })
-        return res.sendStatus(500);
-    }
+    // } catch (error) {
+    //     console.error({ error })
+    //     return res.sendStatus(500);
+    // }
 });
 
 
