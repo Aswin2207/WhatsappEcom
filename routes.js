@@ -1,6 +1,13 @@
 'use strict';
 const router = require('express').Router();
 const utils = require('./utils');
+const WhatsappCloudAPI = require('whatsappcloudapi_wrapper');
+const Whatsapp = new WhatsappCloudAPI({
+    accessToken: process.env.Meta_WA_accessToken,
+    senderPhoneNumberId: process.env.Meta_WA_SenderPhoneNumberId,
+    WABA_ID: process.env.Meta_WA_wabaId, 
+    graphAPIVersion: 'v14.0'
+});
 
 router.get('/meta_wa_callbackurl', (req, res) => {
     try {
