@@ -25,6 +25,16 @@ router.get('/meta_wa_callbackurl', (req, res) => {
     }
 });
 
+router.get('/demo', (req, res) => {
+    try {
+        console.log('GET: Someone is pinging me!');
+        return res.sendStatus(200);
+    } catch (error) {
+        console.error({error})
+        return res.sendStatus(500);
+    }
+});
+
 router.post('/meta_wa_callbackurl', async (req, res) => {
     try {
         console.log('POST: Someone is pinging me!');
