@@ -37,11 +37,39 @@ router.get('/demo', (req, res) => {
 
 router.post('/meta_wa_callbackurl', async (req, res) => {
     try {
+        let data = Whatsapp.parseMessage(req.body);
+        console.log(data)
+
+        if (data?.isMessage) {
+            let incomingMessage = data.message;
+            let recipientPhone = incomingMessage.from.phone; // extract the phone number of sender
+            let recipientName = incomingMessage.from.name;
+            let typeOfMsg = incomingMessage.type; // extract the type of message (some are text, others are images, others are responses to buttons etc...)
+            let message_id = incomingMessage.message_id; // extract the message id
+        }
         console.log('POST: Someone is pinging me!');
-        return res.sendStatus(200);
+        if (typeOfMsg === 'text_message') {
+            await Whatsapp.sendSimpleButtons({
+                message: `Hey ${recipientName}, \nYou are speaking to a chatbot.\nWhat do you want to do next?`,
+                recipientPhone: recipientPhone, 
+                listOfButtons: [
+                    {
+                        title: 'View some products',
+                        id: 'see_categories',
+                    },
+                    {
+                        title: 'Speak to a human',
+                        id: 'speak_to_human',
+                    },
+                ],
+            });
+        }
+        // return res.sendStatus(200);
     } catch (error) {
                 console.error({error})
         return res.sendStatus(500);
     }
 });
+
+
 module.exports = router;
