@@ -20,5 +20,5 @@ await Whatsapp.sendSimpleButtons({
             id: 'speak_to_human',
         },
     ],
-});
+}).catch(error=>{console.log(error)})
 }
