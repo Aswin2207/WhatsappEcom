@@ -49,7 +49,7 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
     try {
         let data = Whatsapp.parseMessage(req.body);
         console.log(data)
-        res.sendStatus(200);
+        return res.sendStatus(200);
         if (data.isMessage) {
             let incomingMessage = data.message;
             let recipientPhone = incomingMessage.from.phone; // extract the phone number of sender
