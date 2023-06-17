@@ -63,13 +63,12 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
                 utils.firstMessage(recipientName, recipientPhone)
             }
             else if(typeOfMsg === 'text_message' && (incomingMessage.button_reply.id === 'English' || 'Maths')){
-                utils.secondMessage(recipientName, recipientPhone,incomingMessage.simple_button_message.id)
+                utils.secondMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
             }
             else if(typeOfMsg === 'text_message' && (incomingMessage.button_reply.id === 'A' || 'B' || 'C')){
-                utils.thirdMessage(recipientName, recipientPhone,incomingMessage.simple_button_message.id)
+                utils.thirdMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
             }
             else if(typeOfMsg === 'text_message' && (incomingMessage.button_reply.id === '6pm' || '8pm' || '9pm')){
-                utils.fourthMessage(recipientName, recipientPhone,incomingMessage.simple_button_message.title)
             }
             else{
                 utils.fifthMessage(recipientName, recipientPhone,incomingMessage.simple_button_message.id)
