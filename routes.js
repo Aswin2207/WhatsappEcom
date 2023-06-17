@@ -60,7 +60,8 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
             let recipientName = incomingMessage.from.name;
             let typeOfMsg = incomingMessage.type; // extract the type of message (some are text, others are images, others are responses to buttons etc...)
             let message_id = incomingMessage.message_id; // extract the message id
-            console.log(incomingMessage)
+            console.log(incomingMessage);
+            console.log(status)
             if (typeOfMsg === 'text_message' && incomingMessage.text.body === 'Hi' && !status.step1) {
                 console.log('step1')
                 status.step1=true;
