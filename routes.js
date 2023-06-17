@@ -5,7 +5,7 @@ const WhatsappCloudAPI = require('whatsappcloudapi_wrapper');
 const Whatsapp = new WhatsappCloudAPI({
     accessToken: process.env.Meta_WA_accessToken,
     senderPhoneNumberId: process.env.Meta_WA_SenderPhoneNumberId,
-    WABA_ID: process.env.Meta_WA_wabaId, 
+    WABA_ID: process.env.Meta_WA_wabaId,
     graphAPIVersion: 'v14.0'
 });
 
@@ -28,7 +28,7 @@ router.get('/meta_wa_callbackurl', (req, res) => {
             return res.sendStatus(403);
         }
     } catch (error) {
-        console.error({error})
+        console.error({ error })
         return res.sendStatus(500);
     }
 });
@@ -38,7 +38,7 @@ router.get('/demo', (req, res) => {
         console.log('GET: Someone is pinging me!');
         return res.sendStatus(200);
     } catch (error) {
-        console.error({error})
+        console.error({ error })
         return res.sendStatus(500);
     }
 });
@@ -54,19 +54,30 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
             let recipientName = incomingMessage.from.name;
             let typeOfMsg = incomingMessage.type; // extract the type of message (some are text, others are images, others are responses to buttons etc...)
             let message_id = incomingMessage.message_id; // extract the message id
-             
+
             console.log(typeOfMsg);
-            console.log(incomingMessage.text.body)
-            if (typeOfMsg === 'text_message' && incomingMessage.text.body ==='Hi') {
-                
-                console.log("Yes")
-                utils.firstMessage(recipientName,recipientPhone)
+            console.log(incomingMessage)
+            if (typeOfMsg === 'text_message' && incomingMessage.text.body === 'Hi') {
+
+                utils.firstMessage(recipientName, recipientPhone)
+            }
+            else if(typeOfMsg === 'text_message' && (incomingMessage.simple_button_message === 'English' || 'Maths')){
+                utils.secondMessage(recipientName, recipientPhone,incomingMessage.simple_button_message.id)
+            }
+            else if(typeOfMsg === 'text_message' && (incomingMessage.simple_button_message === 'A' || 'B' || 'C')){
+                utils.thirdMessage(recipientName, recipientPhone,incomingMessage.simple_button_message.id)
+            }
+            else if(typeOfMsg === 'text_message' && (incomingMessage.simple_button_message === '6pm' || '8pm' || '9pm')){
+                utils.fourthMessage(recipientName, recipientPhone,incomingMessage.simple_button_message.title)
+            }
+            else{
+                utils.fifthMessage(recipientName, recipientPhone,incomingMessage.simple_button_message.id)
             }
         }
         console.log('POST: Someone is pinging me!');
         // return res.sendStatus(200);
     } catch (error) {
-                console.error({error})
+        console.error({ error })
         return res.sendStatus(500);
     }
 });
