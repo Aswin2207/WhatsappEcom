@@ -66,7 +66,7 @@ exports.thirdMessage = async (recipientName, recipientPhone, tutor) => {
 
 exports.fourthMessage = async (recipientName, recipientPhone, tutor,slot) => {
     await Whatsapp.sendSimpleButtons({
-        message: `$Please confirm your booking with tutor ${tutor} On ${slot}`,
+        message: `Please confirm your booking with tutor ${tutor} On ${slot}`,
         recipientPhone: recipientPhone,
         listOfButtons: [
             {

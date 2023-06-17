@@ -9,7 +9,9 @@ const Whatsapp = new WhatsappCloudAPI({
     graphAPIVersion: 'v13.0'
 });
 
-const status={step1:false,step2:false,step3:false,step4:false,step5:false}
+var status={step1:false,step2:false,step3:false,step4:false,step5:false}
+
+var tutor;
 
 router.get('/meta_wa_callbackurl', (req, res) => {
     try {
@@ -70,11 +72,12 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
             }
             else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === 'A' || 'B' || 'C') && !status.step3){
                 status.step3=true;
+                tutor=incomingMessage.button_reply.id;
                 utils.thirdMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
             }
             else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === '6pm' || '8pm' || '9pm') && !status.step4){
                 status.step4=true;
-                utils.fourthMessage(recipientName, recipientPhone,incomingMessage.button_reply.title)
+                utils.fourthMessage(recipientName, recipientPhone,tutor,incomingMessage.button_reply.title)
             }
             else{
                 if(!status.step5){
@@ -97,7 +100,7 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
         // }
     } catch (error) {
         console.error({ error })
-        return res.sendStatus(500);
+        return res.sendStatus(200);
     }
 });
 
