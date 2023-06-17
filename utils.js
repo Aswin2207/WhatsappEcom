@@ -13,11 +13,11 @@ await Whatsapp.sendSimpleButtons({
     listOfButtons: [
         {
             title: 'English',
-            value: 'English',
+            id: 'English',
         },
         {
             title: 'Maths',
-            value: 'Maths',
+            id: 'Maths',
         },
     ],
 }).catch(error=>{console.log(error)})
