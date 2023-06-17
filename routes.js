@@ -68,17 +68,19 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
                 status.step2=true;
                 utils.secondMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
             }
-            else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === 'A' || 'B' || 'C')){
+            else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === 'A' || 'B' || 'C') && status.step3){
                 status.step3=true;
                 utils.thirdMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
             }
-            else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === '6pm' || '8pm' || '9pm')){
+            else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === '6pm' || '8pm' || '9pm') && status.step4){
                 status.step4=true;
                 utils.fourthMessage(recipientName, recipientPhone,incomingMessage.button_reply.title)
             }
             else{
                 status.step5=true;
+                if(!status.step5){
                 utils.fifthMessage(recipientName, recipientPhone,incomingMessage.button_reply.id);
+                }
                 if(incomingMessage.button_reply.id === 'No'){
                     status.step1=false;
                     status.step2=false;
