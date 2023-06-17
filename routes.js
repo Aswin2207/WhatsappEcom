@@ -48,7 +48,7 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
     console.log("Message received")
     try {
         let data = Whatsapp.parseMessage(req.body);
-        console.log(data.isMessage)
+        console.log("dataStruct"+data.isMessage)
 
         if (data.isMessage) {
             let incomingMessage = data.message;
@@ -78,7 +78,7 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
         //    console.log("no msg")
         // console.log('POST: Someone is pinging me!');
         }
-        return res.sendStatus(200);
+        // return res.sendStatus(200);
     } catch (error) {
         console.error({ error })
         return res.sendStatus(500);
