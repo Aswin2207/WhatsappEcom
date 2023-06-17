@@ -8,16 +8,16 @@ const Whatsapp = new WhatsappCloudAPI({
 
 exports.firstMessage = async (recipientName, recipientPhone) => {
 await Whatsapp.sendSimpleButtons({
-    message: `Hey ${recipientName}, \nYou are speaking to a chatbot.\nWhat do you want to do next?`,
+    message: `Which course/subject do you want to book?`,
     recipientPhone: recipientPhone, 
     listOfButtons: [
         {
-            title: 'View some products',
-            id: 'see_categories',
+            title: 'English',
+            value: 'English',
         },
         {
-            title: 'Speak to a human',
-            id: 'speak_to_human',
+            title: 'Maths',
+            value: 'Maths',
         },
     ],
 }).catch(error=>{console.log(error)})
