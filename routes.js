@@ -9,6 +9,8 @@ const Whatsapp = new WhatsappCloudAPI({
     graphAPIVersion: 'v13.0'
 });
 
+const status={step1:false,step2:false,step3:false,step4:false,step5:false}
+
 router.get('/meta_wa_callbackurl', (req, res) => {
     try {
         console.log('GET: Someone is pinging me!');
@@ -57,21 +59,33 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
             let typeOfMsg = incomingMessage.type; // extract the type of message (some are text, others are images, others are responses to buttons etc...)
             let message_id = incomingMessage.message_id; // extract the message id
             console.log(incomingMessage)
-            if (typeOfMsg === 'text_message' && incomingMessage.text.body === 'Hi') {
+            if (typeOfMsg === 'text_message' && incomingMessage.text.body === 'Hi' && status.step1) {
+                status.step1=true;
 
                 utils.firstMessage(recipientName, recipientPhone)
             }
-            else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === 'English' || 'Maths')){
+            else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === 'English' || 'Maths') && status.step2){
+                status.step2=true;
                 utils.secondMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
             }
             else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === 'A' || 'B' || 'C')){
+                status.step3=true;
                 utils.thirdMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
             }
             else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === '6pm' || '8pm' || '9pm')){
+                status.step4=true;
                 utils.fourthMessage(recipientName, recipientPhone,incomingMessage.button_reply.title)
             }
             else{
-                utils.fifthMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
+                status.step5=true;
+                utils.fifthMessage(recipientName, recipientPhone,incomingMessage.button_reply.id);
+                if(incomingMessage.button_reply.id === 'No'){
+                    status.step1=false;
+                    status.step2=false;
+                    status.step3=false;
+                    status.step4=false;
+                    status.step5=false;
+                }
             }
         }
         // return res.sendStatus(200);
