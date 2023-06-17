@@ -49,7 +49,6 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
     try {
         let data = Whatsapp.parseMessage(req.body);
         console.log(data)
-        return res.sendStatus(200);
         if (data.isMessage) {
             let incomingMessage = data.message;
             let recipientPhone = incomingMessage.from.phone; // extract the phone number of sender
@@ -57,28 +56,28 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
             let typeOfMsg = incomingMessage.type; // extract the type of message (some are text, others are images, others are responses to buttons etc...)
             let message_id = incomingMessage.message_id; // extract the message id
 
-        //     if (typeOfMsg === 'text_message' && incomingMessage.text.body === 'Hi') {
+            if (typeOfMsg === 'text_message' && incomingMessage.text.body === 'Hi') {
 
-        //         utils.firstMessage(recipientName, recipientPhone)
-        //     }
-        //     else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === 'English' || 'Maths')){
-        //         utils.secondMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
-        //     }
-        //     else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === 'A' || 'B' || 'C')){
-        //         utils.thirdMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
-        //     }
-        //     else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === '6pm' || '8pm' || '9pm')){
-        //         utils.fourthMessage(recipientName, recipientPhone,incomingMessage.button_reply.title)
-        //     }
-        //     else{
-        //         utils.fifthMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
-        //     }
-        // }
+                utils.firstMessage(recipientName, recipientPhone)
+            }
+            else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === 'English' || 'Maths')){
+                utils.secondMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
+            }
+            else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === 'A' || 'B' || 'C')){
+                utils.thirdMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
+            }
+            else if(typeOfMsg === 'simple_button_message' && (incomingMessage.button_reply.id === '6pm' || '8pm' || '9pm')){
+                utils.fourthMessage(recipientName, recipientPhone,incomingMessage.button_reply.title)
+            }
+            else{
+                utils.fifthMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
+            }
+        }
+        return res.sendStatus(200);
         // else{
         //    console.log("no msg")
         // console.log('POST: Someone is pinging me!');
-        }
-        // return res.sendStatus(200);
+        // }
     } catch (error) {
         console.error({ error })
         return res.sendStatus(500);
