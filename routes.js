@@ -62,25 +62,30 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
             let message_id = incomingMessage.message_id; // extract the message id
             console.log(incomingMessage)
             if (typeOfMsg === 'text_message' && incomingMessage.text.body === 'Hi' && !status.step1) {
+                console.log('step1')
                 status.step1=true;
 
                 utils.firstMessage(recipientName, recipientPhone)
             }
             else if(typeOfMsg === 'simple_button_message' && incomingMessage.button_reply.id === 'English' || 'Maths' && !status.step2){
                 status.step2=true;
+                console.log('step2')
                 utils.secondMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
             }
             else if(typeOfMsg === 'simple_button_message' && incomingMessage.button_reply.id === 'A' || 'B' || 'C' && !status.step3){
                 status.step3=true;
+                console.log('step3')
                 tutor=incomingMessage.button_reply.id;
                 utils.thirdMessage(recipientName, recipientPhone,incomingMessage.button_reply.id)
             }
             else if(typeOfMsg === 'simple_button_message' && incomingMessage.button_reply.id === '6pm' || '8pm' || '9pm' && !status.step4){
                 status.step4=true;
+                console.log('step4')
                 utils.fourthMessage(recipientName, recipientPhone,tutor,incomingMessage.button_reply.title)
             }
             else{
                 if(!status.step5){
+                    console.log('step5')
                 status.step5=true;
                 utils.fifthMessage(recipientName, recipientPhone,incomingMessage.button_reply.id);
                 }
