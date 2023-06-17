@@ -57,7 +57,7 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
              
             console.log(typeOfMsg);
             console.log(incomingMessage.text)
-            if (typeOfMsg === 'text_message' && incomingMessage.body ==='Hi') {
+            if (typeOfMsg === 'text_message' && incomingMessage.text.body ==='Hi') {
                 
                 console.log("Yes")
                 utils.firstMessage(recipientName,recipientPhone)
