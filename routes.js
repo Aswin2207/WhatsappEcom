@@ -46,24 +46,25 @@ router.post('/meta_wa_callbackurl', async (req, res) => {
             let recipientName = incomingMessage.from.name;
             let typeOfMsg = incomingMessage.type; // extract the type of message (some are text, others are images, others are responses to buttons etc...)
             let message_id = incomingMessage.message_id; // extract the message id
+
+            if (typeOfMsg === 'text_message' && incomingMessage ==='Hi') {
+                await Whatsapp.sendSimpleButtons({
+                    message: `Hey ${recipientName}, \nYou are speaking to a chatbot.\nWhat do you want to do next?`,
+                    recipientPhone: recipientPhone, 
+                    listOfButtons: [
+                        {
+                            title: 'View some products',
+                            id: 'see_categories',
+                        },
+                        {
+                            title: 'Speak to a human',
+                            id: 'speak_to_human',
+                        },
+                    ],
+                });
+            }
         }
         console.log('POST: Someone is pinging me!');
-        if (typeOfMsg === 'text_message') {
-            await Whatsapp.sendSimpleButtons({
-                message: `Hey ${recipientName}, \nYou are speaking to a chatbot.\nWhat do you want to do next?`,
-                recipientPhone: recipientPhone, 
-                listOfButtons: [
-                    {
-                        title: 'View some products',
-                        id: 'see_categories',
-                    },
-                    {
-                        title: 'Speak to a human',
-                        id: 'speak_to_human',
-                    },
-                ],
-            });
-        }
         // return res.sendStatus(200);
     } catch (error) {
                 console.error({error})
