@@ -44,6 +44,7 @@ router.get('/demo', (req, res) => {
 });
 
 router.post('/meta_wa_callbackurl', async (req, res) => {
+    console.log("Message received")
     try {
         let data = Whatsapp.parseMessage(req.body);
         console.log(data)
